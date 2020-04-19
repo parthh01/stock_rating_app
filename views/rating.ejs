@@ -4,9 +4,30 @@
 <h1>rate stocks here  </h1>
 
 
+<div class="ui raised very padded text container segment" id = "ratingdiv">
+	<form action = "/rating?_method=PUT" method = "POST">
+		<% var idx_one = Math.floor(Math.random() * (assets.length)) %> 
+		<% var idx_two = Math.floor(Math.random() * (assets.length)) %> 
+		<% for(idx of [idx_one,idx_two]) { %> 
+			<div class = "rating_item">
+				<div class = "item">
+					<i class="large life ring middle aligned icon"></i>
+					<li><strong>Company: </strong><%= assets[idx].equity %> </li>
+					<div>
+						<li><strong>Ticker: </strong><%= assets[idx].ticker %> </li>
+					</div>
+					<div>
+						<li><strong>Current Rating: </strong><%= assets[idx].rating %> </li>
+					</div>
+					<input type="submit" name="result" class = " massive ui olive button" value = "<%= idx %>beat<%= [idx_one,idx_two].filter(index => index != idx) %>">
+				</div>
+			</div>
+		<% } %> 
+	</form>
+</div>
 
 
-
+<script type="text/javascript" src = "rating.js"></script>
 
 
 

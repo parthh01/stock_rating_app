@@ -4,13 +4,20 @@
 <h1>Look at list here </h1>
 
 <div class="ui raised very padded text container segment">
-	<% assets.forEach(stock => { %> 
-		<div>
-			<li><strong>Company: </strong><%= stock.equity %> </li>
-			<li><strong>Ticker: </strong><%= stock.ticker %> </li>
-			<li><strong>Rating: </strong><%= stock.rating %> </li>
-		</div>
-	<% }) %> 
+	<div class="ui relaxed divided list">
+		<% assets.forEach(stock => { %> 
+			<div class = "item">
+				<i class="large life ring middle aligned icon"></i>
+				<li><strong>Company: </strong><%= stock.equity %> </li>
+				<div>
+					<li><strong>Ticker: </strong><%= stock.ticker %> </li>
+				</div>
+				<div>
+					<li><strong>Rating: </strong><%= stock.rating %> </li>
+				</div>
+			</div>
+		<% }) %> 		
+	</div>
 </div>
 
 

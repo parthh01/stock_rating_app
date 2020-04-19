@@ -1,7 +1,8 @@
 var scraped 	= [],
 	request 	= require('request'),
 	JSSoup		= require('jssoup').default,
-	Stock		= require('./models/stocks');
+	Stock		= require('./models/stocks'),
+	avgRating	= 1500;
 
 
 function getAssetImage(asset){ // not in use since limit is 100 requests per day 
@@ -36,7 +37,7 @@ async function getSeedData(){
 							equity : rows[i].contents[1].text,
 							ticker : rows[i].contents[2].text,
 							image : 'dnf',
-							rating : 1200		
+							rating : avgRating - parseInt(rows[i].contents[0].text)		
 						}
 					scraped.push(obj)
 				}

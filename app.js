@@ -4,9 +4,10 @@ var express 		= require('express'),
 	bodyParser 		= require('body-parser'), 
 	methodOverride 	= require('method-override'),
 	Stock 			= require('./models/stocks'),
-	seedDb 			= require('./seed');
+	seedDb 			= require('./seed'),
+	getStockData	= require('./livedata');
 
-seedDb();
+//seedDb();
 app.set('view engine','ejs'); 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method')); 
@@ -19,20 +20,6 @@ app.locals.BtnKeys = {
 }
 
 mongoose.connect('mongodb://localhost/stock_rating_app',{useNewUrlParser: true, useUnifiedTopology: true})
-
-// Stock.create({
-// 	equity: 'Random Company',
-// 	ticker: 'RAND',
-// 	price: '0.01',
-// 	image: 'data:image/png;base64,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',
-// 	rating: 1200
-// },function(err,stock){
-// 	if (err){
-// 		console.log('problem')
-// 	} else {
-// 		console.log('stock created')
-// 	}
-// })
 
 
 app.use('/',function(req,res,next){
@@ -64,5 +51,52 @@ app.get('/results',function(req,res){
 
 
 app.get('/rating',function(req,res){
-	res.render('rating')
+	Stock.find({},function(err,assets){
+		if(err){
+			console.log(err)
+		} else {
+			res.render('rating',{assets:assets})
+		}
+	})
 })
+
+app.put('/rating',function(req,res){
+	Stock.find({},function(err,assets){
+		if(err){
+			console.log(err)
+		} else {
+			var indexes = req.body.result.split('beat'),
+				current_rating_A = assets[indexes[0]].rating,
+				current_rating_B = assets[indexes[1]].rating,
+				k = 20, // needs to be changed to be a function of number of 'matches'
+				expected_score_A = 1/(1+(Math.pow(10,(current_rating_B-current_rating_A)/400))),
+				expected_score_B = 1 - expected_score_A,
+				new_rating_A = Math.round(current_rating_A + (k*(1-expected_score_A))),
+				new_rating_B = Math.round(current_rating_B + (k*(0-expected_score_B))),
+				ratings = [new_rating_A,new_rating_B]; 
+			for(var i=0; i<2; i++){
+				Stock.findByIdAndUpdate(
+					{_id: assets[indexes[i]]._id},
+					{rating: ratings[i]},
+					function(err,result){
+						if (err){
+							console.log(err)
+						}
+				})
+			}
+			res.redirect('/rating')
+		}
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+

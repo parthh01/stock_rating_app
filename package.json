@@ -16,6 +16,7 @@
     "jssoup": "0.0.11",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.9",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "yahoo-finance": "^0.3.6"
   }
 }

@@ -24,3 +24,12 @@
 #title {
 
 }
+
+i ,li {
+	display: inline-block !important;
+}
+
+.rating_item {
+	display: inline-block;
+}
+
