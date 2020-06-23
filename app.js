@@ -10,7 +10,7 @@ var express 		= require('express'),
 	seedDb 			= require('./seed'),
 	getStockData	= require('./livedata');
 
-//seedDb();
+seedDb();
 app.set('view engine','ejs'); 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method')); 
