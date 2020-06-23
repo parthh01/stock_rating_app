@@ -1,3 +1,6 @@
+
+require('dotenv').config()
+
 var express 		= require('express'),
 	app 			= express(), 
 	mongoose 		= require('mongoose'), 
@@ -19,7 +22,8 @@ app.locals.BtnKeys = {
 	'rating': ['back home','index','view ratings','results']
 }
 
-mongoose.connect('mongodb://localhost/stock_rating_app',{useNewUrlParser: true, useUnifiedTopology: true})
+var mongoose_str = process.env.MONGODB_URI || 'mongodb://localhost/stock_rating_app'
+mongoose.connect(mongoose_str,{useNewUrlParser: true, useUnifiedTopology: true})
 
 
 app.use('/',function(req,res,next){
@@ -27,9 +31,6 @@ app.use('/',function(req,res,next){
 	next()
 })
 
-app.listen(3000,function(){
-	console.log('stock rating app is runnning')
-})
 
 app.get('/',function(req,res){
 	res.redirect('/index')
@@ -89,8 +90,13 @@ app.put('/rating',function(req,res){
 	})
 })
 
+const port = process.env.PORT || 3000;
 
+app.listen(port,function(){
+	console.log('stock rating app is runnning')
+})
 
+module.exports = app
 
 
 
